@@ -45,7 +45,10 @@ var vehicles = [
   },
 ]
 var vehicleSelect = document.getElementById('vehicleSelect');
-
+var selectedVehicle;
+var vehicleCost;
+var fuelDistance;
+var fuelCost = 226.9;
 
 
 $(document).ready(function(){
@@ -59,10 +62,24 @@ for (var i = 0; i < vehicles.length; i++) {
 
 });
 
+
 function chosenVehicle(vehicleId){
+
   console.log("You have clicked on vehicle "+vehicleId);
+  for (var i = 0; i < vehicles.length; i++) {
+    if (vehicles[i].id === vehicleId) {
+      selectedVehicle = vehicles[i]
+      break;
+    }
+  }
+  vehicleCost = selectedVehicle.dailyCost;
+  console.log("$"+vehicleCost+" per day");
+  fuelDistance = selectedVehicle.litresPerKm;
+  console.log(fuelDistance + "L/100km");
+
 
 }
+
 
 
 $("#panelChange").click(function(){
@@ -105,6 +122,7 @@ $("#noDetours").click(function(){
 var place1, place2;
  var numOfPeople;
  var numOfDays;
+ var distance
   var map;
       function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
@@ -140,7 +158,8 @@ var place1, place2;
 
         }
 
-        var directionsDisplay
+
+      var directionsDisplay
       function getDirections(){
       if (directionsDisplay) {
       directionsDisplay.setMap(null);
@@ -175,8 +194,10 @@ var place1, place2;
 
       $("#submitTrip").click(function(){
         document.getElementById("vehicleSelect").innerHTML = "";
-        numOfPeople = $('#numberOfPeople').val()
-        numOfDays = $('#numberOfDays').val()
+        numOfPeople = $("#numberOfPeople").val();
+        numOfDays = $("#numberOfDays").val();
+        distance = $("#distance").val();
+
         for (var i = 0; i < vehicles.length; i++) {
           if ((numOfPeople >= vehicles[i].minPeople && numOfPeople <= vehicles[i].maxPeople) && (numOfDays >= vehicles[i].minDays && numOfDays <= vehicles[i].maxDays)) {
             console.log(vehicles[i]);
@@ -187,8 +208,15 @@ var place1, place2;
 
 
 
+
         getDirections();
 
+        var totalCost = (numOfDays*selectedVehicle.dailyCost)+((distance/fuelDistance)*2.269);
+        console.log("$"+totalCost);
+        $("#cost").html("");
+        $("#cost").html("$"+totalCost);
       });
+
+
 
 google.maps.event.addDomListener(window, 'load', initMap);
