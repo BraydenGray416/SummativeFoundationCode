@@ -53,12 +53,12 @@ var fuelCost = 226.9;
 
 $(document).ready(function(){
 
-var vehicleBox = "";
-for (var i = 0; i < vehicles.length; i++) {
-  var vehicleList = vehicles[i];
-  vehicleBox = '<div id="vehicle" class="col col-2 bg-light text-center" onclick="chosenVehicle('+vehicleList.id+');">'+vehicleList.name+'</div>';
-      document.getElementById("vehicleSelect").innerHTML += vehicleBox;
-}
+  var vehicleBox = "";
+  for (var i = 0; i < vehicles.length; i++) {
+    var vehicleList = vehicles[i];
+    vehicleBox = '<div id="vehicle" class="col col-2 bg-light text-center" onclick="chosenVehicle('+vehicleList.id+');">'+vehicleList.name+'</div>';
+    document.getElementById("vehicleSelect").innerHTML += vehicleBox;
+  }
 
 });
 
@@ -95,128 +95,150 @@ $("#panelChange").click(function(){
 $("#submitTrip").click(function(){
 
 
-    if (x.matches) {
-      $("#tripForm").hide();
-      $("#vehicleSelect").attr("style", "display: none !important");
-      $("#submitTrip").hide();
-      $("#tripCalculator").attr("style", "height: 15% !important");
-      $("#pokemonDetours").attr("style", "height: 85% !important");
-      $("#detourForm").show();
-      $("#detourBtns").attr("style", "display: flex !important");
-    }
+  if (x.matches) {
+    $("#tripForm").hide();
+    $("#vehicleSelect").attr("style", "display: none !important");
+    $("#submitTrip").hide();
+    $("#tripCalculator").attr("style", "height: 15% !important");
+    $("#pokemonDetours").attr("style", "height: 85% !important");
+    $("#detourForm").show();
+    $("#detourBtns").attr("style", "display: flex !important");
+  }
+  getDirections();
 });
 
 $("#noDetours").click(function(){
   if (x.matches) {
-  $("#pokemonDetours").hide();
-  $("#travelPanels").attr("style", "height: 15% !important");
-  $("#travelPanels").show();
-  $("#tripCalculator").attr("style", "height: 100% !important")
-  $("#map").attr("style", "display: block !important; width: 100% !important")
+    $("#pokemonDetours").hide();
+    $("#travelPanels").attr("style", "height: 15% !important");
+    $("#travelPanels").show();
+    $("#tripCalculator").attr("style", "height: 100% !important")
+    $("#map").attr("style", "display: block !important; width: 100% !important")
 
-}
+  }
 });
 
-  var x = window.matchMedia("(max-width: 576px)")
+var x = window.matchMedia("(max-width: 576px)")
 
 var place1, place2;
- var numOfPeople;
- var numOfDays;
- var distance
-  var map;
-      function initMap() {
-        map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: -41.279078, lng: 174.780281},
-          zoom: 8
-        });
+var numOfPeople;
+var numOfDays;
+var distance
+var map;
+function initMap() {
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: -41.279078, lng: 174.780281},
+    zoom: 8
+  });
 
 
 
 
+  var input = document.getElementById('startLocation');
+  var autoComplete = new google.maps.places.Autocomplete(input);
+  autoComplete.addListener('place_changed', function(){
+    console.log('the place has been changed');
+    place1 = autoComplete.getPlace();
+    console.log(place1);
+    map.setCenter(place1.geometry.location);
+  });
+
+  var input2 = document.getElementById('destination');
+  var autoComplete2 = new google.maps.places.Autocomplete(input2);
+  autoComplete2.addListener('place_changed', function(){
+    console.log('the place has been changed');
+    place2 = autoComplete2.getPlace();
+    console.log(place2);
+    map.setCenter(place2.geometry.location);
+  });
+
+}
 
 
+var directionsDisplay
+function getDirections(){
+  if (directionsDisplay) {
+    directionsDisplay.setMap(null);
+  }
+  // console.log('show me the directions');
+  var directionsService = new google.maps.DirectionsService();
+  directionsDisplay = new google.maps.DirectionsRenderer();
+
+  directionsDisplay.setMap(map);
+
+  directionsService.route({
+    origin: place1.geometry.location,
+    destination: place2.geometry.location,
+    travelMode: 'DRIVING'
+  }, function(response, status){
+    if (status == 'OK') {
+      console.log(response);
+      directionsDisplay.setDirections(response);
+      $("#distance").html("");
+      $("#distance").html(response.routes[0].legs[0].distance.text);
+      $("#time").html("");
+      $("#time").html(response.routes[0].legs[0].duration.text);
+      distance = response.routes[0].legs[0].distance.value;
+
+      console.log(daysValue);
+      console.log(vehicleCost);
+      console.log(distance);
+      console.log(fuelDistance);
+      var totalCost = Math.ceil(((parseInt(daysValue)*vehicleCost)+(((distance/1000)/fuelDistance)*2.269)));
+      console.log("$"+totalCost);
+      $("#cost").html("");
+      $("#cost").html("$"+totalCost);
+
+    }else if (status == 'NOT_FOUND') {
+      console.log('either your origin or destination is invalid');
+    }else if (status == 'ZERO_RESULTS') {
+      alert('sorry there is no routes available');
+    }
+  });
+
+}
 
 
+var peopleValue;
+var numOfPeopleJS = document.getElementById("numberOfPeople")
+numOfPeopleJS.addEventListener("input", function(){
+  peopleValue = parseInt(numOfPeopleJS.value)
+  if (peopleValue < 1 || peopleValue > 6) {
+    Swal.fire({
+      type: "error",
+      title: "Oops...",
+      text: "Please enter a number from 1 to 6",
+      timer: "4000",
+      heightAuto: false,
+    });
+  }
+  validateVehicles();
+});
 
-        var input = document.getElementById('startLocation');
-        var autoComplete = new google.maps.places.Autocomplete(input);
-        autoComplete.addListener('place_changed', function(){
-            console.log('the place has been changed');
-            place1 = autoComplete.getPlace();
-            console.log(place1);
-            map.setCenter(place1.geometry.location);
-          });
-
-          var input2 = document.getElementById('destination');
-          var autoComplete2 = new google.maps.places.Autocomplete(input2);
-          autoComplete2.addListener('place_changed', function(){
-              console.log('the place has been changed');
-              place2 = autoComplete2.getPlace();
-              console.log(place2);
-              map.setCenter(place2.geometry.location);
-            });
-
-        }
-
-
-      var directionsDisplay
-      function getDirections(){
-      if (directionsDisplay) {
-      directionsDisplay.setMap(null);
-      }
-      // console.log('show me the directions');
-      var directionsService = new google.maps.DirectionsService();
-      directionsDisplay = new google.maps.DirectionsRenderer();
-
-      directionsDisplay.setMap(map);
-
-      directionsService.route({
-      origin: place1.geometry.location,
-      destination: place2.geometry.location,
-      travelMode: 'DRIVING'
-      }, function(response, status){
-        if (status == 'OK') {
-            console.log(response);
-            directionsDisplay.setDirections(response);
-            $("#distance").html("");
-            $("#distance").html(response.routes[0].legs[0].distance.text);
-            $("#time").html("");
-            $("#time").html(response.routes[0].legs[0].duration.text);
-
-        }else if (status == 'NOT_FOUND') {
-            console.log('either your origin or destination is invalid');
-        }else if (status == 'ZERO_RESULTS') {
-              alert('sorry there is no routes available');
-        }
-      });
-
-      }
-
-      $("#submitTrip").click(function(){
-        document.getElementById("vehicleSelect").innerHTML = "";
-        numOfPeople = $("#numberOfPeople").val();
-        numOfDays = $("#numberOfDays").val();
-        distance = $("#distance").val();
-
-        for (var i = 0; i < vehicles.length; i++) {
-          if ((numOfPeople >= vehicles[i].minPeople && numOfPeople <= vehicles[i].maxPeople) && (numOfDays >= vehicles[i].minDays && numOfDays <= vehicles[i].maxDays)) {
-            console.log(vehicles[i]);
-            vehicleBox = '<div id="vehicle" class="col col-2 bg-light text-center" onclick="chosenVehicle('+vehicles[i].id+');">'+vehicles[i].name+'</div>';
-                document.getElementById("vehicleSelect").innerHTML += vehicleBox;
-          }
-        }
-
-
-
-
-        getDirections();
-
-        var totalCost = (numOfDays*selectedVehicle.dailyCost)+((distance/fuelDistance)*2.269);
-        console.log("$"+totalCost);
-        $("#cost").html("");
-        $("#cost").html("$"+totalCost);
-      });
-
-
+var daysValue;
+var numOfDaysJS = document.getElementById("numberOfDays")
+numOfDaysJS.addEventListener("input", function(){
+  daysValue = parseInt(numOfDaysJS.value)
+  if (daysValue < 1 || daysValue > 15) {
+    Swal.fire({
+      type: "error",
+      title: "Oops...",
+      text: "Please enter a number from 1 to 15",
+      timer: "4000",
+      heightAuto: false,
+    });
+  }
+  validateVehicles();
+});
+function validateVehicles(){
+    document.getElementById("vehicleSelect").innerHTML = "";
+  for (var i = 0; i < vehicles.length; i++) {
+    if ((peopleValue >= vehicles[i].minPeople && peopleValue <= vehicles[i].maxPeople) && (daysValue >= vehicles[i].minDays && daysValue <= vehicles[i].maxDays)) {
+      console.log(vehicles[i]);
+      vehicleBox = '<div id="vehicle" class="col col-2 bg-light text-center" onclick="chosenVehicle('+vehicles[i].id+');">'+vehicles[i].name+'</div>';
+      document.getElementById("vehicleSelect").innerHTML += vehicleBox;
+    }
+  }
+}
 
 google.maps.event.addDomListener(window, 'load', initMap);

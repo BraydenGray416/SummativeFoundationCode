@@ -1,94 +1,94 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
-    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
-    <link rel="stylesheet" href="css/style.css">
-  </head>
-  <body>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title></title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
 
 
 
-    <div id="contentContainer">
+  <div id="contentContainer">
 
-      <div id="background">
-        <div id="backgroundContainer" class="d-flex justify-content-center flex-column align-items-center">
-          <img src="assets/pogoLogo.png" alt="pogoLogo" class="img-fluid">
-          <h1>Transport</h1>
-          <button id="panelChange" type="button" name="button" class="btn btn-primary">Plan my trip!</button>
-        </div>
+    <div id="background">
+      <div id="backgroundContainer" class="d-flex justify-content-center flex-column align-items-center">
+        <img src="assets/pogoLogo.png" alt="pogoLogo" class="img-fluid">
+        <h1>Transport</h1>
+        <button id="panelChange" type="button" name="button" class="btn btn-primary">Plan my trip!</button>
       </div>
-
-
-      <div  id="travelPanels" class="">
-        <div class="row d-md-block d-lg-block">
-          <div id="tripCalculator" class="col col-12 ">
-            <form id="tripForm">
-              <div class="form-group">
-                <label for="startPoint">Starting point</label>
-                <input type="text" name="startLocation" id="startLocation" value="" class="col-12">
-              </div>
-              <div class="form-group">
-                <label for="destination">Destination</label>
-                <input type="text" name="destination" id="destination" value="" class="col-12">
-              </div>
-              <div class="form-group">
-                <label for="numberOfPeople">How many people?</label>
-                <input type="text" name="numberOfPeople" id="numberOfPeople" value="" class="col-12">
-              </div>
-              <div class="form-group">
-                <label for="days">How long for? (days)</label>
-                <input type="text" name="numberOfDays" id="numberOfDays" value="" class="col-12">
-              </div>
-            </form>
-            <div id="vehicleSelect" class="d-flex justify-content-between">
-              
-            </div>
-            <button id="submitTrip" type="button" name="button" class="btn btn-primary border-right-0 border-top-0 border-light">Confirm my trip!</button>
-            <div id="tripResults" class="d-flex justify-content-between">
-              <span id="distance">0km</span><span id="time">0:00</span><span id="cost">$0</span>
-            </div>
-          </div>
-
-
-          <div id="pokemonDetours" class="col col-12 ">
-            <form id="detourForm">
-              <label for="showMons">Show Pokemon:</label>
-              <select class="form-control">
-                <option value="False">No</option>
-                <option value="True">Yes</option>
-              </select>
-              <label for="showMons">Show Gyms:</label>
-              <select class="form-control">
-                <option value="False">No</option>
-                <option value="True">Yes</option>
-              </select>
-              <label for="showMons">Show Pokestops:</label>
-              <select class="form-control">
-                <option value="False">No</option>
-                <option value="True">Yes</option>
-              </select>
-            </form>
-            <div id="detourBtns" class="d-flex justify-content-between">
-              <button id="noDetours" type="button" class="btn btn-primary border-right-0 border-top-0 border-light">No Detours</button>
-              <button id="addDetours" type="button" class="btn btn-primary border-right-0 border-top-0 border-light">Add Detours</button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div id="map"></div>
-
-
     </div>
 
 
+    <div  id="travelPanels" class="">
+      <div class="row d-md-block d-lg-block">
+        <div id="tripCalculator" class="col col-12 ">
+          <form id="tripForm">
+            <div class="form-group">
+              <label for="startPoint">Starting point</label>
+              <input type="text" name="startLocation" id="startLocation" value="" class="col-12">
+            </div>
+            <div class="form-group">
+              <label for="destination">Destination</label>
+              <input type="text" name="destination" id="destination" value="" class="col-12">
+            </div>
+            <div class="form-group">
+              <label for="numberOfPeople">How many people?</label>
+              <input type="text" name="numberOfPeople" id="numberOfPeople" value="" class="col-12">
+            </div>
+            <div class="form-group">
+              <label for="days">How long for? (days)</label>
+              <input type="text" name="numberOfDays" id="numberOfDays" value="" class="col-12">
+            </div>
+          </form>
+          <div id="vehicleSelect" class="d-flex justify-content-between">
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDuyUmasjFatysBpzkSm-yBlL3bFklXAsA&libraries=places"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="js/script.js"></script>
-  </body>
+          </div>
+          <button id="submitTrip" type="button" name="button" class="btn btn-primary border-right-0 border-top-0 border-light">Confirm my trip!</button>
+          <div id="tripResults" class="d-flex justify-content-between">
+            <span id="distance">0km</span><span id="time">0:00</span><span id="cost">$0</span>
+          </div>
+        </div>
+
+
+        <div id="pokemonDetours" class="col col-12 ">
+          <form id="detourForm">
+            <label for="showMons">Show Pokemon:</label>
+            <select class="form-control">
+              <option value="False">No</option>
+              <option value="True">Yes</option>
+            </select>
+            <label for="showMons">Show Gyms:</label>
+            <select class="form-control">
+              <option value="False">No</option>
+              <option value="True">Yes</option>
+            </select>
+            <label for="showMons">Show Pokestops:</label>
+            <select class="form-control">
+              <option value="False">No</option>
+              <option value="True">Yes</option>
+            </select>
+          </form>
+          <div id="detourBtns" class="d-flex justify-content-between">
+            <button id="noDetours" type="button" class="btn btn-primary border-right-0 border-top-0 border-light">No Detours</button>
+            <button id="addDetours" type="button" class="btn btn-primary border-right-0 border-top-0 border-light">Add Detours</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="map"></div>
+
+
+  </div>
+
+
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDuyUmasjFatysBpzkSm-yBlL3bFklXAsA&libraries=places"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+  <script src="plugins/package/dist/sweetalert2.all.min.js"></script>
+  <script type="text/javascript" src="js/script.js"></script>
+</body>
 </html>
