@@ -1,0 +1,121 @@
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+@import 'bootstrap/bootstrap';
+
+#contentContainer{
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+    #background{
+      height: 100%;
+      width: 33.333%;
+      background-color: #1f1f1f;
+      position: absolute;
+      #backgroundContainer{
+        width: 100%;
+        height: 100%;
+        img{
+          width: 75%;
+        }
+        h1{
+          color: #FFFFFF;
+        }
+      }
+    }
+
+    #travelPanels{
+      height: 100%;
+      width: 33.333%;
+      padding-left: 10px;
+      margin: 0;
+      display: none;
+      position: absolute;
+      .row{
+        height: 100%;
+        #tripCalculator{
+          padding-top: 10px;
+          height: 60%;
+          background-color: #2b89cc;
+          border: 1px solid #666666;
+          border-bottom-right-radius: 20px;
+          color: #FFFFFF;
+          #vehicle{
+            height: 48px;
+            color: #000000 !important;
+          }
+          #submitTrip{
+            margin-top: 15px;
+          }
+          #tripResults{
+            font-size: 1rem;
+          }
+        }
+        #pokemonDetours{
+          padding-top: 10px;
+          height: 40%;
+          background-color: #1877BA;
+          border: 1px solid #666666;
+          color: #FFFFFF;
+          border-top-right-radius: 20px;
+          #detourBtns{
+            margin-top: 15px;
+          }
+        }
+      }
+
+    }
+}
+#map {
+    height: 100%;
+    width: 67.666%;
+    // top: 0;
+    right: 0;
+    background-color: blue;
+    position: absolute;
+    z-index: -10;
+  }
+
+@include media-breakpoint-down(sm) {
+  #background{
+    height: 100%;
+    width: 100% !important;
+    #backgroundContainer{
+      width: 100% !important;
+      img{
+        width: 75%;
+      }
+      h1{
+        color: #FFFFFF;
+      }
+    }
+  }
+  #travelPanels {
+    width: 100% !important;
+    position: static !important;
+    padding-right: 10px;
+    #tripCalculator{
+      height: 85% !important;
+      border-bottom-right-radius: 0 !important;
+    }
+    #pokemonDetours{
+      height: 15% !important;
+      border-top-right-radius: 0 !important;
+      form{
+        display: none;
+      }
+      #detourBtns{
+        margin-top: 15px;
+        display: none !important;
+      }
+    }
+  }
+  #map{
+    display: none;
+    height: 85% !important;
+    bottom: 0;
+    position: static;
+  }
+}
