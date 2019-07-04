@@ -168,7 +168,7 @@ var allNests = [
     title: "Tauranga",
   }
 ]
-var vehicleSelect = document.getElementById('vehicleSelect');
+var vehicleSelect = document.getElementById("vehicleSelect");
 var selectedVehicle;
 var vehicleCost;
 var fuelDistance;
@@ -180,7 +180,7 @@ $(document).ready(function(){
   var vehicleBox = "";
   for (var i = 0; i < vehicles.length; i++) {
     var vehicleList = vehicles[i];
-    vehicleBox = '<div id="vehicle" class="col col-2 bg-light text-center" onclick="chosenVehicle('+vehicleList.id+');">'+vehicleList.name+'</div>';
+    vehicleBox = "<div id='vehicle' class='col col-2 bg-light text-center' onclick='chosenVehicle('+vehicleList.id+');'>"+vehicleList.name+"</div>";
     document.getElementById("vehicleSelect").innerHTML += vehicleBox;
   }
 
@@ -252,7 +252,7 @@ var map;
 var activeMarkers = [];
 var activeMarkers2 = [];
 function initMap() {
-  map = new google.maps.Map(document.getElementById('map'), {
+  map = new google.maps.Map(document.getElementById("map"), {
     center: {lat: -41.279078, lng: 174.780281},
     zoom: 8
   });
@@ -265,15 +265,15 @@ function initMap() {
       },
       map: map,
       animation: google.maps.Animation.DROP,
-      icon: 'assets/gymIcon.png',
+      icon: "assets/gymIcon.png",
       markerTitle: allGyms[i].title,
       markerID: allGyms[i].id
     });
     activeMarkers.push(marker);
   }
 
-  $('#showExGyms').change(function(){
-      console.log('yeet');
+  $("#showExGyms").change(function(){
+      console.log("yeet");
       var e = document.getElementById("showExGyms");
       var strUser = e.options[e.selectedIndex].value;
       console.log(strUser);
@@ -291,7 +291,7 @@ function initMap() {
             },
             map: map,
             animation: google.maps.Animation.DROP,
-            icon: 'assets/gymIcon.png',
+            icon: "assets/gymIcon.png",
             markerTitle: allGyms[i].title,
             markerID: allGyms[i].id
           });
@@ -308,14 +308,14 @@ function initMap() {
       },
       map: map,
       animation: google.maps.Animation.DROP,
-      icon: 'assets/pokemonIcon.png',
+      icon: "assets/pokemonIcon.png",
       markerTitle: allNests[i].title,
       markerID: allNests[i].id
     });
     activeMarkers2.push(marker);
   }
-  $('#showPokemon').change(function(){
-      console.log('yeet');
+  $("#showPokemon").change(function(){
+      console.log("yeet");
       var a = document.getElementById("showPokemon");
       var strUser2 = a.options[a.selectedIndex].value;
       console.log(strUser2);
@@ -333,7 +333,7 @@ function initMap() {
             },
             map: map,
             animation: google.maps.Animation.DROP,
-            icon: 'assets/pokemonIcon.png',
+            icon: "assets/pokemonIcon.png",
             markerTitle: allNests[i].title,
             markerID: allNests[i].id
           });
@@ -342,19 +342,19 @@ function initMap() {
       }
   });
 
-  var input = document.getElementById('startLocation');
+  var input = document.getElementById("startLocation");
   var autoComplete = new google.maps.places.Autocomplete(input);
-  autoComplete.addListener('place_changed', function(){
-    console.log('the place has been changed');
+  autoComplete.addListener("place_changed", function(){
+    console.log("the place has been changed");
     place1 = autoComplete.getPlace();
     console.log(place1);
     map.setCenter(place1.geometry.location);
   });
 
-  var input2 = document.getElementById('destination');
+  var input2 = document.getElementById("destination");
   var autoComplete2 = new google.maps.places.Autocomplete(input2);
-  autoComplete2.addListener('place_changed', function(){
-    console.log('the place has been changed');
+  autoComplete2.addListener("place_changed", function(){
+    console.log("the place has been changed");
     place2 = autoComplete2.getPlace();
     console.log(place2);
     map.setCenter(place2.geometry.location);
@@ -368,7 +368,7 @@ function getDirections(){
   if (directionsDisplay) {
     directionsDisplay.setMap(null);
   }
-  // console.log('show me the directions');
+  // console.log("show me the directions");
   var directionsService = new google.maps.DirectionsService();
   directionsDisplay = new google.maps.DirectionsRenderer();
 
@@ -377,9 +377,9 @@ function getDirections(){
   directionsService.route({
     origin: place1.geometry.location,
     destination: place2.geometry.location,
-    travelMode: 'DRIVING'
+    travelMode: "DRIVING"
   }, function(response, status){
-    if (status == 'OK') {
+    if (status == "OK") {
       console.log(response);
       directionsDisplay.setDirections(response);
       $("#distance").html("");
@@ -397,10 +397,10 @@ function getDirections(){
       $("#cost").html("");
       $("#cost").html("$"+totalCost);
 
-    }else if (status == 'NOT_FOUND') {
-      console.log('either your origin or destination is invalid');
-    }else if (status == 'ZERO_RESULTS') {
-      alert('sorry there is no routes available');
+    }else if (status == "NOT_FOUND") {
+      console.log("either your origin or destination is invalid");
+    }else if (status == "ZERO_RESULTS") {
+      alert("sorry there is no routes available");
     }
   });
 
@@ -443,10 +443,10 @@ function validateVehicles(){
   for (var i = 0; i < vehicles.length; i++) {
     if ((peopleValue >= vehicles[i].minPeople && peopleValue <= vehicles[i].maxPeople) && (daysValue >= vehicles[i].minDays && daysValue <= vehicles[i].maxDays)) {
       console.log(vehicles[i]);
-      vehicleBox = '<div id="vehicle" class="col col-2 bg-light text-center" onclick="chosenVehicle('+vehicles[i].id+');">'+vehicles[i].name+'</div>';
+      vehicleBox = "<div id="vehicle" class="col col-2 bg-light text-center" onclick="chosenVehicle("+vehicles[i].id+");">"+vehicles[i].name+"</div>";
       document.getElementById("vehicleSelect").innerHTML += vehicleBox;
     }
   }
 }
 
-google.maps.event.addDomListener(window, 'load', initMap);
+google.maps.event.addDomListener(window, "load", initMap);
