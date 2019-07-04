@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title></title>
+  <title>Pokemon Go Travel</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -26,7 +26,7 @@
         <div id="tripCalculator" class="col col-12 ">
           <form id="tripForm">
             <div class="form-group">
-              <label for="startPoint">Starting point</label>
+              <label for="startLocation">Starting point</label>
               <input type="text" name="startLocation" id="startLocation" value="" class="col-12">
             </div>
             <div class="form-group">
@@ -38,7 +38,7 @@
               <input type="text" name="numberOfPeople" id="numberOfPeople" value="" class="col-12">
             </div>
             <div class="form-group">
-              <label for="days">How long for? (days)</label>
+              <label for="numberOfDays">How long for? (days)</label>
               <input type="text" name="numberOfDays" id="numberOfDays" value="" class="col-12">
             </div>
           </form>
@@ -54,12 +54,12 @@
 
         <div id="pokemonDetours" class="col col-12 ">
           <form id="detourForm">
-            <label for="showMons">Show Pokemon Nests:</label>
+            <label for="showPokemon">Show Pokemon Nests:</label>
             <select id="showPokemon" name="showPokemon" class="form-control">
               <option value="True">Yes</option>
               <option value="False">No</option>
             </select>
-            <label for="showGyms">Show Gyms:</label>
+            <label for="showExGyms">Show Gyms:</label>
             <select id="showExGyms" name="showExGyms" class="form-control">
               <option value="Yes">Yes</option>
               <option value="No">No</option>
@@ -80,6 +80,6 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
   <script src="plugins/package/dist/sweetalert2.all.min.js"></script>
-  <script type="text/javascript" src="js/script.js"></script>
+  <script src="js/script.js"></script>
 </body>
 </html>
