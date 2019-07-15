@@ -43,7 +43,7 @@ var vehicles = [
     dailyCost: 200,
     litresPerKm: 17
   },
-]
+];
 var allGyms = [
   {
     id: 1,
@@ -105,7 +105,7 @@ var allGyms = [
     lng: 174.725125,
     title: "Cox's Bay Reserve",
   }
-]
+];
 var allNests = [
   {
     id: 1,
@@ -167,12 +167,10 @@ var allNests = [
     lng: 176.1651,
     title: "Tauranga",
   }
-]
-var vehicleSelect = document.getElementById("vehicleSelect");
+];
 var selectedVehicle;
 var vehicleCost;
 var fuelDistance;
-var fuelCost = 226.9;
 
 
 $(document).ready(function(){
@@ -192,7 +190,7 @@ function chosenVehicle(vehicleId){
   console.log("You have clicked on vehicle "+vehicleId);
   for (var i = 0; i < vehicles.length; i++) {
     if (vehicles[i].id === vehicleId) {
-      selectedVehicle = vehicles[i]
+      selectedVehicle = vehicles[i];
       break;
     }
   }
@@ -207,7 +205,7 @@ function chosenVehicle(vehicleId){
 $("#panelChange").click(function(){
   $("#background").hide();
   $("#travelPanels").show();
-  $("#contentContainer").attr("style", "background-color: none;")
+  $("#contentContainer").attr("style", "background-color: none;");
   if (x.matches) {
     $("#detourBtns").attr("style", "display: none !important");
   }
@@ -236,18 +234,16 @@ $("#noDetours").click(function(){
     $("#pokemonDetours").hide();
     $("#travelPanels").attr("style", "height: 15% !important");
     $("#travelPanels").show();
-    $("#tripCalculator").attr("style", "height: 100% !important")
-    $("#map").attr("style", "display: block !important; width: 100% !important")
+    $("#tripCalculator").attr("style", "height: 100% !important");
+    $("#map").attr("style", "display: block !important; width: 100% !important");
 
   }
 });
 
-var x = window.matchMedia("(max-width: 576px)")
+var x = window.matchMedia("(max-width: 576px)");
 
 var place1, place2;
-var numOfPeople;
-var numOfDays;
-var distance
+var distance;
 var map;
 var activeMarkers = [];
 var activeMarkers2 = [];
@@ -283,36 +279,36 @@ function initMap() {
         }
         activeMarkers = [];
       } else if (strUser == "Yes") {
-        for (var i = 0; i < allGyms.length; i++) {
+        for (var m = 0; m < allGyms.length; m++) {
           var marker = new google.maps.Marker({
             position:{
-              lat: allGyms[i].lat,
-              lng: allGyms[i].lng
+              lat: allGyms[m].lat,
+              lng: allGyms[m].lng
             },
             map: map,
             animation: google.maps.Animation.DROP,
             icon: "assets/gymIcon.png",
-            markerTitle: allGyms[i].title,
-            markerID: allGyms[i].id
+            markerTitle: allGyms[m].title,
+            markerID: allGyms[m].id
           });
           activeMarkers.push(marker);
         }
       }
   });
-  for (var i = 0; i < allNests.length; i++) {
+  for (var n = 0; n < allNests.length; n++) {
 
-    var marker = new google.maps.Marker({
+    var marker2 = new google.maps.Marker({
       position:{
-        lat: allNests[i].lat,
-        lng: allNests[i].lng
+        lat: allNests[n].lat,
+        lng: allNests[n].lng
       },
       map: map,
       animation: google.maps.Animation.DROP,
       icon: "assets/pokemonIcon.png",
-      markerTitle: allNests[i].title,
-      markerID: allNests[i].id
+      markerTitle: allNests[n].title,
+      markerID: allNests[n].id
     });
-    activeMarkers2.push(marker);
+    activeMarkers2.push(marker2);
   }
   $("#showPokemon").change(function(){
       console.log("yeet");
@@ -325,17 +321,17 @@ function initMap() {
         }
         activeMarkers2 = [];
       } else if (strUser2 == "True") {
-        for (var i = 0; i < allGyms.length; i++) {
+        for (var j = 0; j < allGyms.length; j++) {
           var marker = new google.maps.Marker({
             position:{
-              lat: allNests[i].lat,
-              lng: allNests[i].lng
+              lat: allNests[j].lat,
+              lng: allNests[j].lng
             },
             map: map,
             animation: google.maps.Animation.DROP,
             icon: "assets/pokemonIcon.png",
-            markerTitle: allNests[i].title,
-            markerID: allNests[i].id
+            markerTitle: allNests[j].title,
+            markerID: allNests[j].id
           });
           activeMarkers2.push(marker);
         }
@@ -363,7 +359,7 @@ function initMap() {
 }
 
 
-var directionsDisplay
+var directionsDisplay;
 function getDirections(){
   if (directionsDisplay) {
     directionsDisplay.setMap(null);
@@ -408,10 +404,10 @@ function getDirections(){
 
 
 var peopleValue;
-var numOfPeopleJS = document.getElementById("numberOfPeople")
+var numOfPeopleJS = document.getElementById("numberOfPeople");
 numOfPeopleJS.addEventListener("input", function(){
-  peopleValue = parseInt(numOfPeopleJS.value)
-  if (peopleValue < 1 || peopleValue > 6) {
+  peopleValue = parseInt(numOfPeopleJS.value);
+  if (isNaN(peopleValue) || peopleValue < 1 || peopleValue > 6) {
     Swal.fire({
       type: "error",
       title: "Oops...",
@@ -424,10 +420,10 @@ numOfPeopleJS.addEventListener("input", function(){
 });
 
 var daysValue;
-var numOfDaysJS = document.getElementById("numberOfDays")
+var numOfDaysJS = document.getElementById("numberOfDays");
 numOfDaysJS.addEventListener("input", function(){
-  daysValue = parseInt(numOfDaysJS.value)
-  if (daysValue < 1 || daysValue > 15) {
+  daysValue = parseInt(numOfDaysJS.value);
+  if (isNaN(daysValue) || daysValue< 1 || daysValue > 15) {
     Swal.fire({
       type: "error",
       title: "Oops...",
@@ -443,7 +439,7 @@ function validateVehicles(){
   for (var i = 0; i < vehicles.length; i++) {
     if ((peopleValue >= vehicles[i].minPeople && peopleValue <= vehicles[i].maxPeople) && (daysValue >= vehicles[i].minDays && daysValue <= vehicles[i].maxDays)) {
       console.log(vehicles[i]);
-      vehicleBox = "<div id="vehicle" class="col col-2 bg-light text-center" onclick="chosenVehicle("+vehicles[i].id+");">"+vehicles[i].name+"</div>";
+      vehicleBox = '<div id="vehicle" class="col col-2 bg-light text-center" onclick="chosenVehicle('+vehicles[i].id+');">'+vehicles[i].name+'</div>';
       document.getElementById("vehicleSelect").innerHTML += vehicleBox;
     }
   }
